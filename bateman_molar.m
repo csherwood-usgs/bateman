@@ -7,7 +7,7 @@
 % Needs:
 %   bateman
 %   define_colors
-
+global lam
 % standardize colors
 define_colors
 % time step
@@ -65,7 +65,14 @@ for i = 1:n-1
     N3(i+1) = N3i;
 end
 
-
+%% Compute numerical solution
+if(0)
+% time array
+tspan = [tstart 2020];
+C0 = [N1(1),N2(1),N3(1)];
+% call ODE solver for three constituents (no global decay)
+[tode, C] = ode45(@dcdt3,tspan,C0);
+end
 %% plot results
 fsz = 14;  % fontsize
 set(0,'defaultaxesfontsize',fsz)
@@ -75,6 +82,15 @@ t = tstart:dt:tstart+dt*(n-1);
 
 figure(1)
 clf
+
+% plot numerical solution...these overlay exactly
+if(0)
+hn1=plot(tode, C(:,1),'+')
+hold on
+hn2=plot(tode, C(:,2),'+')
+hn3=plot(tode, C(:,3),'+')
+end
+
 hi1=plot(tmeas,invmeas(:,1),'o');
 hold on
 hi2=plot(tmeas,invmeas(:,2),'o');
