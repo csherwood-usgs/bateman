@@ -11,7 +11,7 @@ if(exist('n','var')~=1),n=1;end;
 N = length(model);
 df = N-n;
 X2 = NaN; PX = NaN;
-if(df<=0),error('Not enough data in chisq.');end;
+if(df<=1),error('Not enough data in chisq.');end;
 X2 = (1./df)*sum( (model - data).^2 ./datavar );
 PX = gammainc(X2/2,df/2);
 return
