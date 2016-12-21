@@ -2,11 +2,15 @@
 %    concentrations of DDE -> DDNU -> DDMU -> ?
 %
 % csherwood@usgs.gov
-% 19 Dec 2016
+% 21 Dec 2016
 %
 % Needs:
 %   bateman
 %   define_colors
+% For numerical solutions, needs:
+%   dcdt3
+%   bateman_diff_eq_nested
+
 global lam
 % standardize colors
 define_colors
@@ -65,14 +69,19 @@ for i = 1:n-1
     N3(i+1) = N3i;
 end
 
-%% Compute numerical solution
-if(0)
+%% Compute numerical solutions
+
 % time array
 tspan = [tstart 2020];
 C0 = [N1(1),N2(1),N3(1)];
 % call ODE solver for three constituents (no global decay)
 [tode, C] = ode45(@dcdt3,tspan,C0);
-end
+
+% This version is cleaner...it does not need global variables
+% use other version to compute only for sample times, as a check
+tspan = tmeas';
+[t2,C2] = bateman_diff_eq_nested( tspan, C0, lam )
+
 %% plot results
 fsz = 14;  % fontsize
 set(0,'defaultaxesfontsize',fsz)
@@ -84,11 +93,12 @@ figure(1)
 clf
 
 % plot numerical solution...these overlay exactly
-if(0)
+if(1)
 hn1=plot(tode, C(:,1),'+')
 hold on
 hn2=plot(tode, C(:,2),'+')
 hn3=plot(tode, C(:,3),'+')
+plot(t2,C2,'xk')
 end
 
 hi1=plot(tmeas,invmeas(:,1),'o');
