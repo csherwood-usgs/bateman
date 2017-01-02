@@ -1,5 +1,6 @@
 function [t,C] = bateman_diff_eq_nested( tspan, C0, lam )
 % bateman_diff_eq_nested - Solve the Bateman equations using an ODE solver
+% [t,C]=bateman_diff_eq_nested( tspan, CO, lam )
 %
 % This is the best numerical version. It uses the nested function approach,
 % so no global variables are needed.

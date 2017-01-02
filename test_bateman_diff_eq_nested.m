@@ -1,5 +1,6 @@
 % test_bateman_diff_eq_nested - Solve the Bateman equations using an ODE solver
-% decay rates are global so they can be seen inside the function
+% The ODE solver and the diff eq wrapped in a functions so that decay rates
+% don't have to be global
 %
 % needs dcdt.m
 %

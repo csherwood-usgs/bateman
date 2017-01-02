@@ -51,28 +51,4 @@ tst=['{\chi}^2 = ',chi_str,', {\lambda} = ',lam_str]
 
 ts=sprintf('NL ChiSq= %7.5f, lam= %6.3f',X2_nl,pnl(1))
 
-%% Try to fit all three inventories
-
-C0 = I.DDE(1)*adj(1);
-x = I.date-I.date(1);
-y = I.DDE.*adj;      % "data"
-sfsd = 0.05*y;       % guess at measurement uncertainty
-pin = [-0.04];       % initial parameters
-stol = 1e-4 ;        % tolerance (fractional)
-niter = 30;          % default is 20
-wt = 1 ./sfsd; % weights
-
-tstart = tic;
-[cnl,pnl,kvg,iter,corp,covp,covr,stdresid,Z,r2]= ...
-   nlleasqr(x,y,pin,'decayfunc',stol,niter,wt);
-etime = toc(tstart); fprintf(1,'nlleasqr time: %g\n',etime);
-chat_nl = C0*exp(pnl(1).*(I.date-I.date(1)));
-h4=semilogy(I.date,chat_nl,'-c','linewidth',2); set(h4,'color',[.4 .2 .8]);
-[X2_nl,PX_nl,df_nl]=chisq(y, chat_nl, sfsd.^2, 1);
-chi_str = sprintf('%7.3f',X2_nl)
-lam_str = sprintf('%6.3f',pnl(1))
-tst=['{\chi}^2 = ',chi_str,', {\lambda} = ',lam_str]
-
-ts=sprintf('NL ChiSq= %7.5f, lam= %6.3f',X2_nl,pnl(1))
-
 
