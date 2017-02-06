@@ -2,7 +2,7 @@
  
 These are Matlab scripts to explore multi-step degradation of DDE in Palos Verdes sediments.
 
-The name refers to Harry Batemen, FRS, who provided analtical solutions for radioctive decay.
+The name refers to Harry Bateman, FRS, who provided analtical solutions for radioctive decay.
 
 https://en.wikipedia.org/wiki/Bateman_Equation
 
